@@ -1,4 +1,4 @@
-function r = rsym(rd,cal);
+function [rd] = rsym2(rd,cal);
 %rsym
 %    R = RSYM(CR,DELTA,PSM,RHO,ROBC,THETA)
 %function r = rsym(CR,delta,psm,rho,robc,theta)
@@ -15,4 +15,18 @@ theta = cal.theta;
    
 t2 = delta.*2.0;
 t3 = cos(t2);
-r = (psm.*rho.*(cos(t2-theta.*2.0)-t3.*(CR.*2.0-1.0))+CR.*robc.*(rho.*t3+1.0))./(rho.*cos(delta-theta)+1.0);
+r1 = (psm.*rho.*(cos(t2-theta(1).*2.0)-t3.*(CR.*2.0-1.0))+CR.*robc.*(rho.*t3+1.0))./(rho.*cos(delta-theta(1))+1.0);
+r2 = (psm.*rho.*(cos(t2-theta(2).*2.0)-t3.*(CR.*2.0-1.0))+CR.*robc.*(rho.*t3+1.0))./(rho.*cos(delta-theta(2))+1.0);
+
+r = [r1 r2];
+
+rfo = CR*robc;
+rfo = [rfo rfo];
+
+rd = r - rfo;
+%r = [r1];
+%size(r)
+
+
+end
+
